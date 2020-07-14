@@ -47,6 +47,14 @@ python3 train.py
 ```
 
 
+## Validation Data
+
+Validation data can be requested from:
+
+[MAHNOB-HCI](https://mahnob-db.eu/hci-tagging/)
+
+[UBFC-rPPG](https://sites.google.com/view/ybenezeth/ubfcrppg)
+
 
 
 ## Contributing
