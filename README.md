@@ -3,7 +3,7 @@
 
 # Meta-rPPG: Remote Heart Rate Estimation Using a Transductive Meta-Learner
 
-This repository is the official implementation of *Meta-rPPG: Remote Heart Rate Estimation Using a Transductive Meta-Learner*. 
+This repository is the official implementation of *Meta-rPPG: Remote Heart Rate Estimation Using a Transductive Meta-Learner* that has been accepted to ECCV 2020. 
 
 <img src="rppg-overview.png" width="600">
 
