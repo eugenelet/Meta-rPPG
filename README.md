@@ -7,6 +7,22 @@ This repository is the official implementation of *Meta-rPPG: Remote Heart Rate 
 
 <img src="rppg-overview.png" width="600">
 
+## Heatmap Visualization
+
+Left to right: 
+
+1. Cropped input image
+2. End-to-end trained model (baseline)
+3. Meta-rPPG (transducive inference)
+4. Top to down: rPPG signal, Power Spectral Density (PSD), Predicted and ground truth heart rate
+
+<img src="demo1.gif" width="600">
+
+<img src="demo2.gif" width="600">
+
+<img src="demo3.gif" width="600">
+
+
 ## Requirements
 
 To install requirements:
