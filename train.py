@@ -66,9 +66,9 @@ for epoch in range(opt.epoch_count, opt.train_epoch + 1):
          total_iters += opt.win_size
          model.set_input(data)
          if i == 0:
-            model.new_theta_update(epoch)
+            model.new_theta_update(epoch) # Adaptation phase
          else:
-            model.new_psi_phi_update(epoch)
+            model.new_psi_phi_update(epoch) # Learning phase
       # pdb.set_trace()
       loss, test_loss = testing(opt, model, testset, data_idx, epoch)
       
