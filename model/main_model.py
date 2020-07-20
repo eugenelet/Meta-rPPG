@@ -390,32 +390,6 @@ class meta_rPPG(nn.Module):
 
       self.t_ordloss = self.criterion2(self.predict[0].unsqueeze(0), self.true_rPPG[0].unsqueeze(0).to(self.device))
 
-   # def fewshot_learning(self, fewshot):
-   #    # center = fewshot_center.to(self.device)
-   #    # pdb.set_trace()
-   #    batch_size = fewshot.shape[0]
-   #    for i in range(self.opt.fewshots):
-   #       # pdb.set_trace()
-   #       inter = self.A_net(fewshot[i].unsqueeze(0).to(self.device))
-   #       loss = self.criterion1(inter, self.prototype.expand(1,60,120))
-   #       self.optimizerA.zero_grad()
-   #       loss.backward()
-   #       self.optimizerA.step()
-   #       # pdb.set_trace()
-   #    # pdb.set_trace()
-   #    # """unfinished"""
-
-   # def transductive_learning(self, data):
-   #    batch_size = data.shape[0]
-   #    for i in range(batch_size):
-   #       inter = self.A_net(data[i].unsqueeze(0).to(self.device))
-   #       inter_grad = self.Grad_net(inter)
-   #       self.optimizerA.zero_grad()
-   #       grad = torch.autograd.grad(outputs=self.inter, inputs=self.A_net.parameters(),
-   #                      grad_outputs=self.gradient, create_graph=True, retain_graph=True,only_inputs=True)
-   #       torch.autograd.backward(self.A_net.parameters(), grad_tensors=grad, retain_graph=True, create_graph=True)
-   #       self.optimizerA.step()
-   #    pdb.set_trace()
 
    def get_current_results(self, istest):
       if istest:
