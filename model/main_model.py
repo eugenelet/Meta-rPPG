@@ -143,45 +143,48 @@ class meta_rPPG(nn.Module):
       self.optimizerA.step()
 
       if self.opt.adapt_position == "extractor":
-         inter = self.A_net(self.input.to(self.device))
-         decision, predict = self.B_net(inter)
-         inter_grad = self.Grad_net(inter.detach())
-         # self.optimizerA.zero_grad()
-         self.optimizerPsi.zero_grad()
-         grad = torch.autograd.grad(outputs=inter, inputs=self.A_net.parameters(),
-                                    grad_outputs=inter_grad, create_graph=False, retain_graph=False)
-         torch.autograd.backward(self.A_net.parameters(), grad_tensors=grad, retain_graph=False, create_graph=False)
+         for i in range(self.opt.fewshots):
+            inter = self.A_net(self.input.to(self.device))
+            decision, predict = self.B_net(inter)
+            inter_grad = self.Grad_net(inter.detach())
+            # self.optimizerA.zero_grad()
+            self.optimizerPsi.zero_grad()
+            grad = torch.autograd.grad(outputs=inter, inputs=self.A_net.parameters(),
+                                       grad_outputs=inter_grad, create_graph=False, retain_graph=False)
+            torch.autograd.backward(self.A_net.parameters(), grad_tensors=grad, retain_graph=False, create_graph=False)
 
-         self.optimizerPsi.step()
+            self.optimizerPsi.step()
          self.gradient = inter_grad.detach().clone()
       elif self.opt.adapt_position == "estimator":
-         inter = self.A_net(self.input.to(self.device))
-         decision, predict = self.B_net(inter)
-         predict_grad = self.Grad_net(predict.detach())
-         # self.optimizerA.zero_grad()
-         self.optimizerPsi.zero_grad()
-         grad = torch.autograd.grad(outputs=predict, inputs=self.B_net.parameters(),
-                                    grad_outputs=predict_grad, create_graph=False, retain_graph=False)
-         torch.autograd.backward(self.B_net.parameters(), grad_tensors=grad, retain_graph=False, create_graph=False)
-         self.optimizerPsi.step()
+         for i in range(self.opt.fewshots):
+            inter = self.A_net(self.input.to(self.device))
+            decision, predict = self.B_net(inter)
+            predict_grad = self.Grad_net(predict.detach())
+            # self.optimizerA.zero_grad()
+            self.optimizerPsi.zero_grad()
+            grad = torch.autograd.grad(outputs=predict, inputs=self.B_net.parameters(),
+                                       grad_outputs=predict_grad, create_graph=False, retain_graph=False)
+            torch.autograd.backward(self.B_net.parameters(), grad_tensors=grad, retain_graph=False, create_graph=False)
+            self.optimizerPsi.step()
          self.gradient = predict_grad.detach().clone()
 
       elif self.opt.adapt_position == "both":
-         inter = self.A_net(self.input.to(self.device))
-         decision, predict = self.B_net(inter)
-         inter_grad = self.Grad_net(inter.detach())
-         predict_grad = self.Grad_net(predict.detach())
+         for i in range(self.opt.fewshots):
+            inter = self.A_net(self.input.to(self.device))
+            decision, predict = self.B_net(inter)
+            inter_grad = self.Grad_net(inter.detach())
+            predict_grad = self.Grad_net(predict.detach())
 
-         self.optimizerPsi.zero_grad()
-         grad = torch.autograd.grad(outputs=inter, inputs=self.A_net.parameters(),
-                                    grad_outputs=inter_grad, create_graph=False, retain_graph=False)
-         torch.autograd.backward(self.A_net.parameters(), grad_tensors=grad, retain_graph=False, create_graph=False)
+            self.optimizerPsi.zero_grad()
+            grad = torch.autograd.grad(outputs=inter, inputs=self.A_net.parameters(),
+                                       grad_outputs=inter_grad, create_graph=False, retain_graph=False)
+            torch.autograd.backward(self.A_net.parameters(), grad_tensors=grad, retain_graph=False, create_graph=False)
 
-         grad = torch.autograd.grad(outputs=predict, inputs=self.B_net.parameters(),
-                                    grad_outputs=predict_grad, create_graph=False, retain_graph=False)
-         torch.autograd.backward(self.B_net.parameters(), grad_tensors=grad, retain_graph=False, create_graph=False)
+            grad = torch.autograd.grad(outputs=predict, inputs=self.B_net.parameters(),
+                                       grad_outputs=predict_grad, create_graph=False, retain_graph=False)
+            torch.autograd.backward(self.B_net.parameters(), grad_tensors=grad, retain_graph=False, create_graph=False)
 
-         self.optimizerPsi.step()
+            self.optimizerPsi.step()
          self.gradient = predict_grad.detach().clone()
 
       '''release the retained graph, free all the variables'''
