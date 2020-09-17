@@ -77,5 +77,10 @@ Validation data can be requested from:
 
 If you find this work useful, consider citing our work using the following bibTex:
 ```
-[to be added]
+@inproceedings{lee2020meta,
+  title={Meta-rPPG: Remote Heart Rate Estimation Using a Transductive Meta-Learner},
+  author={Lee, Eugene and Chen, Evan and Lee, Chen-Yi},
+  booktitle={European Conference on Computer Vision (ECCV)},
+  year={2020}
+}
 ```
